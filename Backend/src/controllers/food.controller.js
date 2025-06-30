@@ -11,16 +11,31 @@ import mongoose from "mongoose";
 // Add Food
 
 const addFood = asyncHandler(async(req,res)=>{
+    try {
+        
+    } catch (error) {
+        
+    }
 
 })
 
 // All Foods
 const listFood = asyncHandler(async(req,res)=>{
+    try {
+        
+    } catch (error) {
+        
+    }
 
 })
 
 // Remove Food Item
 const removeFood = asyncHandler(async(req,res)=>{
+    try {
+        
+    } catch (error) {
+        
+    }
 
 })
 
