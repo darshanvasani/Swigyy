@@ -1,0 +1,41 @@
+{
+  "name": "swiggy",
+  "version": "1.0.0",
+  "description": "Full Stack Swiggy App",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dpvasani/Swiggy-FullStack.git"
+  },
+  "keywords": [
+    "Full",
+    "Stack",
+    "MARN",
+    "Stack",
+    "Backend"
+  ],
+  "author": "Darshan Vasani",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dpvasani/Swiggy-FullStack/issues"
+  },
+  "homepage": "https://github.com/dpvasani/Swiggy-FullStack#readme",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "body-parser": "^2.2.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.0.0",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.16.1",
+    "multer": "^2.0.1",
+    "stripe": "^18.2.1",
+    "validator": "^13.15.15"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
