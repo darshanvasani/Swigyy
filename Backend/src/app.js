@@ -22,9 +22,17 @@ app.listen(process.env.PORT || 4000, () => {
 // Routes Import
 import userRouter from "./routes/user.route";
 import foodRouter from "./routes/food.route";
+import cartRouter from "./routes/cart.route";
+import orderRouter from "./routes/order.route";
 
 //Routes Declaration
-app.use("/api/v1/users", userRouter);
+app.use("/api/v1/user", userRouter);
 app.use("/api/v1/food", foodRouter);
+app.use("/api/v1/cart", cartRouter);
+app.use("/api/v1/order", orderRouter);
+app.use("/images", express.static("uploads"));
+
+
+
 
 export default app;

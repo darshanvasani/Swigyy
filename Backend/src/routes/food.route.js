@@ -2,7 +2,7 @@ import express from "express";
 import { addFood, listFood, removeFood } from "../controllers/food.controller";
 import multer from "multer";
 import { Router } from "express";
-import authMiddleware from "../middleware/auth.js";
+import authMiddleware from "../middleware/auth.middleware.js";
 
 
 const router = Router();
