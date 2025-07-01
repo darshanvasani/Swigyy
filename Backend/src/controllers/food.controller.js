@@ -7,17 +7,27 @@ import { User } from "../models/user.model.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
+import { uploadOnCloudinary } from "../utils/cloudinary.js";
 
 // Add Food
 
 const addFood = asyncHandler(async(req, res, next) => {
-  let image_filename = `${req.file.filename}`;
+  const localImagePath = req.file?.path;
+  if (!localImagePath) {
+    return next(new ApiError(400, "Image file is required"));
+  }
+  // Upload to Cloudinary
+  const cloudinaryResult = await uploadOnCloudinary(localImagePath);
+  if (!cloudinaryResult || !cloudinaryResult.url) {
+    return next(new ApiError(500, "Failed to upload image to Cloudinary"));
+  }
   const food = new foodModel({
     name: req.body.name,
     description: req.body.description,
     price: req.body.price,
     category: req.body.category,
-    image: image_filename,
+    image: cloudinaryResult.url,
+    imagePublicId: cloudinaryResult.public_id,
   });
   try {
     let userData = await userModel.findById(req.body.userId);
@@ -51,7 +61,9 @@ const removeFood = asyncHandler(async(req, res, next) => {
       if (!food) {
         return next(new ApiError(404, "Food not found"));
       }
-      fs.unlink(`uploads/${food.image}`, () => {});
+      if (food.imagePublicId) {
+        await uploadOnCloudinary.destroy(food.imagePublicId);
+      }
       await foodModel.findByIdAndDelete(req.body.id);
       return res.status(200).json(new ApiResponse(200, null, "Food Removed"));
     } else {
