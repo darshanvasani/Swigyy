@@ -1,12 +1,8 @@
-import foodModel from "../models/foodModel.js";
-import userModel from "../models/userModel.js";
-import fs from "fs";
+import foodModel from "../models/food.model.js";
+import { User } from "../models/user.model.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiError } from "../utils/ApiError.js";
-import { User } from "../models/user.model.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
-import jwt from "jsonwebtoken";
-import mongoose from "mongoose";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
 
 // Add Food
@@ -30,7 +26,7 @@ const addFood = asyncHandler(async(req, res, next) => {
     imagePublicId: cloudinaryResult.public_id,
   });
   try {
-    let userData = await userModel.findById(req.body.userId);
+    let userData = await User.findById(req.body.userId);
     if (userData && userData.role === "admin") {
       await food.save();
       return res.status(201).json(new ApiResponse(201, null, "Food Added"));
@@ -55,7 +51,7 @@ const listFood = asyncHandler(async(req, res, next) => {
 // Remove Food Item
 const removeFood = asyncHandler(async(req, res, next) => {
   try {
-    let userData = await userModel.findById(req.body.userId);
+    let userData = await User.findById(req.body.userId);
     if (userData && userData.role === "admin") {
       const food = await foodModel.findById(req.body.id);
       if (!food) {

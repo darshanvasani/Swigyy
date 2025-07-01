@@ -20,10 +20,10 @@ app.listen(process.env.PORT || 4000, () => {
 });
 
 // Routes Import
-import userRouter from "./routes/user.route";
-import foodRouter from "./routes/food.route";
-import cartRouter from "./routes/cart.route";
-import orderRouter from "./routes/order.route";
+import userRouter from "./routes/user.route.js";
+import foodRouter from "./routes/food.route.js";
+import cartRouter from "./routes/cart.route.js";
+import orderRouter from "./routes/order.route.js";
 
 //Routes Declaration
 app.use("/api/v1/user", userRouter);

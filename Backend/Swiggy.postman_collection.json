@@ -1,0 +1,229 @@
+{
+  "info": {
+    "_postman_id": "swiggy-collection-001",
+    "name": "Swiggy API Collection",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "User Register",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            { "key": "fullName", "value": "Test User", "type": "text" },
+            { "key": "email", "value": "test@example.com", "type": "text" },
+            { "key": "username", "value": "testuser", "type": "text" },
+            { "key": "password", "value": "password123", "type": "text" },
+            { "key": "avatar", "type": "file" },
+            { "key": "coverImage", "type": "file" }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:4000/api/v1/user/register",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4000",
+          "path": ["api", "v1", "user", "register"]
+        }
+      }
+    },
+    {
+      "name": "User Login",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"test@example.com\",\n  \"password\": \"password123\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:4000/api/v1/user/login",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4000",
+          "path": ["api", "v1", "user", "login"]
+        }
+      }
+    },
+    {
+      "name": "Add Food (Admin Only)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            { "key": "name", "value": "Pizza", "type": "text" },
+            { "key": "description", "value": "Delicious pizza", "type": "text" },
+            { "key": "price", "value": "10", "type": "text" },
+            { "key": "category", "value": "Italian", "type": "text" },
+            { "key": "userId", "value": "{{adminUserId}}", "type": "text" },
+            { "key": "image", "type": "file" }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:4000/api/v1/food/add",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4000",
+          "path": ["api", "v1", "food", "add"]
+        }
+      }
+    },
+    {
+      "name": "List Foods",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:4000/api/v1/food/list",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4000",
+          "path": ["api", "v1", "food", "list"]
+        }
+      }
+    },
+    {
+      "name": "Remove Food (Admin Only)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"userId\": \"{{adminUserId}}\",\n  \"id\": \"{{foodId}}\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:4000/api/v1/food/remove",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4000",
+          "path": ["api", "v1", "food", "remove"]
+        }
+      }
+    },
+    {
+      "name": "Add to Cart",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"userId\": \"{{userId}}\",\n  \"itemId\": \"{{foodId}}\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:4000/api/v1/cart/add",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4000",
+          "path": ["api", "v1", "cart", "add"]
+        }
+      }
+    },
+    {
+      "name": "Remove from Cart",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"userId\": \"{{userId}}\",\n  \"itemId\": \"{{foodId}}\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:4000/api/v1/cart/remove",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4000",
+          "path": ["api", "v1", "cart", "remove"]
+        }
+      }
+    },
+    {
+      "name": "Get Cart",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"userId\": \"{{userId}}\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:4000/api/v1/cart/get",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4000",
+          "path": ["api", "v1", "cart", "get"]
+        }
+      }
+    },
+    {
+      "name": "Place Order",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"userId\": \"{{userId}}\",\n  \"itemId\": \"{{foodId}}\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:4000/api/v1/order/place",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4000",
+          "path": ["api", "v1", "order", "place"]
+        }
+      }
+    },
+    {
+      "name": "User Orders",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"userId\": \"{{userId}}\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:4000/api/v1/order/userorders",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4000",
+          "path": ["api", "v1", "order", "userorders"]
+        }
+      }
+    },
+    {
+      "name": "List Orders (Admin Only)",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+        ],
+        "url": {
+          "raw": "http://localhost:4000/api/v1/order/list",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4000",
+          "path": ["api", "v1", "order", "list"]
+        }
+      }
+    }
+  ]
+} 

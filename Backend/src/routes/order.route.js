@@ -1,13 +1,16 @@
 import express from "express";
-import authMiddleware from "../middleware/auth.middleware.js";
-import { listOrders, placeOrder, updateStatus, userOrders, verifyOrder } from "../controllers/orderController.js";
+import { verifyJWT } from "../middlewares/auth.middleware.js";
+import { listOrders, placeOrder, updateStatus, userOrders, verifyOrder } from "../controllers/order.controller.js";
+import Stripe from "stripe";
 
 const orderRouter = express.Router();
 
-orderRouter.post("/place",authMiddleware,placeOrder);
-orderRouter.post("/verify",verifyOrder);
-orderRouter.post("/status",authMiddleware,updateStatus);
-orderRouter.post("/userorders",authMiddleware,userOrders);
-orderRouter.get("/list",authMiddleware,listOrders);
+const stripe = new Stripe(process.env.STRIPE_API_KEY);
+
+orderRouter.post("/place", verifyJWT, placeOrder);
+orderRouter.post("/verify", verifyOrder);
+orderRouter.post("/status", verifyJWT, updateStatus);
+orderRouter.post("/userorders", verifyJWT, userOrders);
+orderRouter.get("/list", verifyJWT, listOrders);
 
 export default orderRouter;

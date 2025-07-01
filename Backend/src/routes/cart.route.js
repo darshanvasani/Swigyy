@@ -3,13 +3,13 @@ import {
   addToCart,
   removeFromCart,
   getCart,
-} from "../controllers/cartController.js";
-import authMiddleware from "../middleware/auth.middleware.js";
+} from "../controllers/cart.controller.js";
+import { verifyJWT } from "../middlewares/auth.middleware.js";
 
 const cartRouter = express.Router();
 
-cartRouter.post("/add",authMiddleware, addToCart);
-cartRouter.post("/remove",authMiddleware, removeFromCart);
-cartRouter.post("/get",authMiddleware, getCart);
+cartRouter.post("/add", verifyJWT, addToCart);
+cartRouter.post("/remove", verifyJWT, removeFromCart);
+cartRouter.post("/get", verifyJWT, getCart);
 
 export default cartRouter;
