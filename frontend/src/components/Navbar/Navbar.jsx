@@ -2,15 +2,20 @@ import React, { useContext, useState } from "react";
 import "./Navbar.css";
 import { assets } from "../../assets/frontend_assets/assets";
 import { Link, useNavigate } from "react-router-dom";
+import { StoreContext } from "../../context/StoreContext";
+import { toast } from "react-toastify";
 
 const Navbar = ({ setShowLogin }) => {
   const [menu, setMenu] = useState("home");
-  const getTotalCartAmount = ()=>{
-    return 0;
-  }
-  const token = 0;
-  
+  const { getTotalCartAmount, token, setToken } = useContext(StoreContext);
+  const navigate=useNavigate();
 
+  const logout=()=>{
+    localStorage.removeItem("token");
+    setToken("");
+    toast.success("Logout Successfully")
+    navigate("/");
+  }
   return (
     <div className="navbar">
       <Link to="/">
