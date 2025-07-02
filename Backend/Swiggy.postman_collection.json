@@ -27,7 +27,8 @@
 								{ "key": "email", "value": "test@example.com", "type": "text" },
 								{ "key": "password", "value": "password123", "type": "text" },
 								{ "key": "avatar", "type": "file", "src": "" },
-								{ "key": "coverImage", "type": "file", "src": "" }
+								{ "key": "coverImage", "type": "file", "src": "" },
+								{ "key": "role", "value": "user", "type": "text", "description": "Set to 'admin' to register an admin user. Default is 'user'" }
 							]
 						},
 						"url": {

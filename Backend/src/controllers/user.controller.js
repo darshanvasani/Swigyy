@@ -45,7 +45,7 @@ const registerUser = asyncHandler(async (req, res) => {
   // Check For User Creation
   // Check For Response
   // Data From Json Or Form We Can Get Directly Through Req.body
-  const { fullName, email, password } = req.body || {};
+  const { fullName, email, password, role } = req.body || {};
   console.log("Request Body:", req.body);
   console.log("Request Files:", req.files);
 
@@ -97,6 +97,7 @@ const registerUser = asyncHandler(async (req, res) => {
     email,
     password,
     coverImage: coverImage?.url || "",
+    role,
   });
 
   const createdUser = await User.findById(user._id).select(

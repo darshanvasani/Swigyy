@@ -24,18 +24,16 @@ const userSchema = new Schema(
     coverImage: {
       type: String, // Cloudinary url
     },
-    watchHistory: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Video",
-      },
-    ],
     password: {
       type: String,
       required: [true, "Password is required"],
     },
     refreshToken: {
       type: String,
+    },
+    role: {
+      type: String,
+      default: "user",
     },
   },
   {
