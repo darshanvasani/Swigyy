@@ -37,7 +37,7 @@ const registerUser = asyncHandler(async (req, res) => {
   //   });
   // Get User Details from frontend
   // Validation that not empty
-  // Check if User Already Exists : UserName, Email
+  // Check if User Already Exists : Email
   // Check For Avatar And Image
   // Upload Them To Cloudinary Avatar
   // Create User Object - Create Entry In DB
@@ -45,7 +45,7 @@ const registerUser = asyncHandler(async (req, res) => {
   // Check For User Creation
   // Check For Response
   // Data From Json Or Form We Can Get Directly Through Req.body
-  const { fullName, email, username, password } = req.body;
+  const { fullName, email, password } = req.body || {};
   console.log("Request Body:", req.body);
   console.log("Request Files:", req.files);
 
@@ -56,16 +56,16 @@ const registerUser = asyncHandler(async (req, res) => {
   //   }
 
   if (
-    [fullName, email, username, password].some((field) => field?.trim() === "")
+    [fullName, email, password].some((field) => field?.trim() === "")
   ) {
     throw new ApiError(400, "All fields are required");
   }
-  // Check If User Name Is Exists
+  // Check If User Email Is Exists
   const existedUser = await User.findOne({
-    $or: [{ email }, { username }],
+    email,
   });
   if (existedUser) {
-    throw new ApiError(409, "User With Username Or Email Is Exists");
+    throw new ApiError(409, "User With Email Already Exists");
   }
   // Multer Getting File Local Path
   // console.log(req.files)
@@ -95,7 +95,6 @@ const registerUser = asyncHandler(async (req, res) => {
     fullName,
     avatar: avatar.url,
     email,
-    username: username.toLowerCase(),
     password,
     coverImage: coverImage?.url || "",
   });
@@ -121,21 +120,19 @@ const registerUser = asyncHandler(async (req, res) => {
 const loginUser = asyncHandler(async (req, res, next) => {
   // Login User Logic
   // Req.body -> Data
-  // Username Or Email
+  // Email
   // Find The User
   // Check Password
   // Access And Refresh Token
   // Send In Secure Cookies
 
   // Data From Req.body
-  const { email, username, password } = req.body;
-  if (!(email || username)) {
-    throw new ApiError(400, "Email or Username is required");
+  const { email, password } = req.body || {};
+  if (!email) {
+    throw new ApiError(400, "Email is required");
   }
-  // Find Username Or Email Whatever Is Exist
-  const user = await User.findOne({
-    $or: [{ username }, { email }],
-  });
+  // Find Email
+  const user = await User.findOne({ email });
   //  If Both Are Not There Than User Not Exist
   if (!user) {
     throw new ApiError(404, "User Not Found Kindly  Register First");
