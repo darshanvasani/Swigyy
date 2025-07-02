@@ -5,6 +5,10 @@ import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = ({ setShowLogin }) => {
   const [menu, setMenu] = useState("home");
+  const getTotalCartAmount = ()=>{
+    return 0;
+  }
+  const token = 0;
   
 
   return (
